@@ -9,6 +9,6 @@ class LangChainKiprisTools:
     def set_api_key(self, api_key: str):
         self.api_key = api_key
         os.environ['KIPRIS_API_KEY'] = api_key
-    def get_tools(self) -> t.List[t.Type[BaseTool]]:
+    def get_tools(self) -> t.List[BaseTool]:
         tool_list = [ApplicantSearchTool(), PatentKeywordSearchTool(), PatentSearchTool()]
         return tool_list
