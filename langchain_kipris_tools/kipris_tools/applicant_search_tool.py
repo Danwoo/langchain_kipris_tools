@@ -10,8 +10,8 @@ class Applicant_Search_Args(BaseModel):
     docs_count: int = Field(10, description="Number of documents to return, default is 10, range is 1-30")
     patent: bool = Field(True, description="Include patents, default is True")
     utility: bool = Field(True, description="Include utility models, default is True")
-    lastvalue:  t.Optional[str] = Field("", description="Patent registration status; leave empty for all, (A, C, F, G, I, J, R, or empty)")
-    sort_spec: str = Field("AD", description="Sort field; default is AD")
+    lastvalue:  str = Field("", description="Patent registration status; leave empty for all, (A, C, F, G, I, J, R, or empty)")
+    sort_spec: str = Field("AD", description="Field to sort by; default is 'AD'(PD-공고일자, AD-출원일자, GD-등록일자, OPD-공개일자, FD-국제출원일자, FOD-국제공개일자, RD-우선권주장일자)")
     desc_sort: bool = Field(True, description="Sort in descending order; default is True, when True, sort by descending order.it mean latest date first.")
 
 
@@ -22,6 +22,6 @@ class ApplicantSearchTool(BaseTool):
     args_schema:t.Type[BaseModel] = Applicant_Search_Args
     return_direct: bool = False
 
-    def _run(self, applicant:str, docs_start:int=1, docs_count:int=10, patent:bool=True, utility:bool=True, lastvalue:t.Optional[str]="", sort_spec:str="AD", desc_sort:bool=True)->pd.DataFrame:
+    def _run(self, applicant:str, docs_start:int=1, docs_count:int=10, patent:bool=True, utility:bool=True, lastvalue:str="", sort_spec:str="AD", desc_sort:bool=True)->pd.DataFrame:
         result = self.api.search(applicant, docs_start, docs_count, patent, utility, lastvalue, sort_spec, desc_sort)
-        return result.to_json()
+        return result
