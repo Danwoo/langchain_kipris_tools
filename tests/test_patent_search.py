@@ -1,5 +1,5 @@
 import pytest
-from langchain_kipris_tools.tools.patent_search_tool import PatentSearchTool, Patent_Search_Args
+from langchain_kipris_tools.kipris_tools.patent_search_tool import PatentSearchTool, Patent_Search_Args
 
 def test_patent_search_class():
     search_tool = PatentSearchTool()
