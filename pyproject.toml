@@ -16,6 +16,9 @@ pytest = "^8.3.3"
 python-dotenv = "^1.0.1"
 stringcase = "^1.2.0"
 setuptools = "^75.3.0"
+langchain = "^0.3.7"
+langchain-community = "^0.3.5"
+langchain-openai = "^0.2.6"
 
 
 [tool.poetry.group.dev.dependencies]
