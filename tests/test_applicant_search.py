@@ -1,6 +1,6 @@
 import pytest
-from langchain_kipris_tools.tools.applicant_search_tool import ApplicantSearchTool
-from langchain_kipris_tools.tools.applicant_search_tool import Applicant_Search_Args
+from langchain_kipris_tools.kipris_tools.applicant_search_tool import ApplicantSearchTool
+from langchain_kipris_tools.kipris_tools.applicant_search_tool import Applicant_Search_Args
 @pytest.mark.skip(reason="not implemented")
 def test_applicant_search():
     pass
