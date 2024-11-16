@@ -1,10 +1,10 @@
-from langchain_kipris_tools.kipris_api.applicant_search_api import ApplicantNameSearchAPI
+from langchain_kipris_tools.kipris_api.application_number_search_api import ApplicationNumberSearchAPI
 from langchain_core.tools import BaseTool
 from pydantic import BaseModel, Field
 import typing as t
 import pandas as pd
-class ApplicantSearchArgs(BaseModel):
-    applicant: str = Field(..., description="Applicant name is required")
+class ApplicationNumberSearchArgs(BaseModel):
+    application_number: str = Field(min_length=13,max_length=13, description="Application number is required")
     docs_start: int = Field(1, description="Start index for documents, default is 1")
     docs_count: int = Field(10, description="Number of documents to return, default is 10, range is 1-30")
     patent: bool = Field(True, description="Include patents, default is True")
@@ -14,11 +14,11 @@ class ApplicantSearchArgs(BaseModel):
     desc_sort: bool = Field(True, description="Sort in descending order; default is True, when True, sort by descending order.it mean latest date first.")
 
 
-class ApplicantSearchTool(BaseTool):
-    name:str = "applicant_search"
-    description:str = "patent search by applicant name"
-    api:ApplicantNameSearchAPI = ApplicantNameSearchAPI()
-    args_schema:t.Type[BaseModel] = ApplicantSearchArgs
+class ApplicationNumberSearchTool(BaseTool):
+    name:str = "application_number_search"
+    description:str = "patent search by application number"
+    api:ApplicationNumberSearchAPI = ApplicationNumberSearchAPI()
+    args_schema:t.Type[BaseModel] = ApplicationNumberSearchArgs
     return_direct: bool = False
 
     def _run(self, applicant:str, docs_start:int=1, docs_count:int=10, patent:bool=True, utility:bool=True, lastvalue:str="", sort_spec:str="AD", desc_sort:bool=True)->pd.DataFrame:

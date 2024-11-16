@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 import typing as t
 import pandas as pd
 
-class Patent_Search_Args(BaseModel):
+class PatentSearchArgs(BaseModel):
     word: str = Field("", description="Search query, default is an empty string. if this is empty, then i should ask user to input query.")
     invention_title: t.Optional[str] = Field("", description="Invention title")
     abst_cont: t.Optional[str] = Field("", description="Abstract content")
@@ -40,7 +40,7 @@ class PatentSearchTool(BaseTool):
     name:str = "patent_search"
     description:str = "patent search many fields"
     api:PatentSearchAPI = PatentSearchAPI()
-    args_schema:t.Type[BaseModel] = Patent_Search_Args
+    args_schema:t.Type[BaseModel] = PatentSearchArgs
     return_direct: bool = False
 
     def _run(self, word:str, patent:bool=True, utility:bool=True, lastvalue:str='', page_no:int=1, num_of_rows:int=10, desc_sort:bool=True, sort_spec:str='AD', **kwargs)->pd.DataFrame:

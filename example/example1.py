@@ -11,7 +11,7 @@ from langchain_openai import ChatOpenAI
 from pydantic import BaseModel, Field
 
 from langchain_kipris_tools import LangChainKiprisTools
-from langchain_kipris_tools.kipris_tools.patent_search_tool import Patent_Search_Args
+from langchain_kipris_tools.kipris_tools.patent_search_tool import PatentSearchArgs
 
 tool_class = LangChainKiprisTools()
 kipris_tools = tool_class.get_tools()
