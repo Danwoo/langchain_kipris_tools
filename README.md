@@ -75,7 +75,7 @@ result = call_with_tool("최신 특허중 현대자동차 특허 10개를 표시
 ```
 
 실제 사용 예제 
-![image](assets/usage.png)
+![image](assets/useage.png)
 
 변경 내역 
 
