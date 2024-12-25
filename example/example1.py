@@ -10,14 +10,14 @@ from langchain_core.output_parsers import PydanticToolsParser
 from langchain_openai import ChatOpenAI
 from pydantic import BaseModel, Field
 
-from langchain_kipris_tools import LangChainKiprisTools
-from langchain_kipris_tools.kipris_tools.patent_search_tool import PatentSearchArgs
+from langchain_kipris_tools import LangChainKiprisKoreanTools
+from langchain_kipris_tools.kipris_tools.korean.patent_search_tool import PatentSearchArgs
 
-tool_class = LangChainKiprisTools()
+tool_class = LangChainKiprisKoreanTools()
 kipris_tools = tool_class.get_tools()
 llm = ChatOpenAI(model="gpt-4o-mini")
 
-def call_with_tool(query, tools):
+def call_with_tool(query, tools):   
     from datetime import datetime as dt
     start = dt.now()
 
