@@ -19,6 +19,8 @@ setup(
     install_requires=[            # 의존 패키지
         "langchain",
         "langchain_core",
+        "langgraph",
+        "redis",
         "requests",
         "xmltodict",
         "pandas",
