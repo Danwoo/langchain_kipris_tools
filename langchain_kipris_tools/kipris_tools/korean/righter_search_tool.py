@@ -1,4 +1,4 @@
-from langchain_kipris_tools.kipris_api.righter_search_api import RighterSearchAPI
+from langchain_kipris_tools.kipris_api.korean.righter_search_api import RighterSearchAPI
 from langchain_core.tools import BaseTool
 from pydantic import BaseModel, Field
 import typing as t

@@ -1,4 +1,4 @@
-from langchain_kipris_tools.kipris_api.application_number_search_api import ApplicationNumberSearchAPI
+from langchain_kipris_tools.kipris_api.korean.application_number_search_api import ApplicationNumberSearchAPI
 from langchain_core.tools import BaseTool
 from pydantic import BaseModel, Field
 import typing as t

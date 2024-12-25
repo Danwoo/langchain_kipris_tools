@@ -1,4 +1,4 @@
-from langchain_kipris_tools.kipris_api.applicant_search_api import ApplicantNameSearchAPI
+from langchain_kipris_tools.kipris_api.korean.applicant_search_api import ApplicantNameSearchAPI
 from langchain_core.tools import BaseTool
 from pydantic import BaseModel, Field
 import typing as t
