@@ -1,4 +1,4 @@
-from langchain_kipris_tools.kipris_api.korean.application_number_search_api import ApplicationNumberSearchAPI
+ from langchain_kipris_tools.kipris_api.korean.application_number_search_api import ApplicationNumberSearchAPI
 from langchain_core.tools import BaseTool
 from pydantic import BaseModel, Field
 import typing as t
@@ -21,6 +21,6 @@ class ApplicationNumberSearchTool(BaseTool):
     args_schema:t.Type[BaseModel] = ApplicationNumberSearchArgs
     return_direct: bool = False
 
-    def _run(self, applicant:str, docs_start:int=1, docs_count:int=10, patent:bool=True, utility:bool=True, lastvalue:str="", sort_spec:str="AD", desc_sort:bool=True)->pd.DataFrame:
-        result = self.api.search(applicant, docs_start, docs_count, patent, utility, lastvalue, sort_spec, desc_sort)
+    def _run(self, application_number:str, docs_start:int=1, docs_count:int=10, patent:bool=True, utility:bool=True, lastvalue:str="", sort_spec:str="AD", desc_sort:bool=True)->pd.DataFrame:
+        result = self.api.search(application_number, docs_start, docs_count, patent, utility, lastvalue, sort_spec, desc_sort)
         return result
