@@ -2,7 +2,7 @@
 
 plus.kipris.or.kr 에서 제공하는 api_key를 이용하여 특허를 검색하는 langchain tool 구현체입니다.
 api_key는 본인의 키를 사용해야 합니다.
-가입은 [link](plus.kipris.or.kr/portal/main.do) 에서 가입 후 사용 가능합니다.
+가입은 [link](http://plus.kipris.or.kr/portal/main.do) 에서 가입 후 사용 가능합니다.
 
 사용 예제
 
@@ -75,7 +75,7 @@ result = call_with_tool("최신 특허중 현대자동차 특허 10개를 표시
 ```
 
 실제 사용 예제 
-![image](assets/usage.png)
+![image](assets/useage.png)
 
 변경 내역 
 
