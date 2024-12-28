@@ -25,10 +25,10 @@ tools = kipristools.get_tools()
 | 4    | 한국| patent_righter_search_tool   | 특허 권리자 검색    | [link](https://plus.kipris.or.kr/portal/data/service/DBII_000000000000001/view.do?menuNo=200100&kppBCode=&kppMCode=&kppSCode=&subTab=SC001&entYn=N&clasKeyword=#soap_ADI_0000000000015121)  |
 | 5    | 한국| patent_number_search_tool    | 특허 출원 번호 검색 | [link](https://plus.kipris.or.kr/portal/data/service/DBII_000000000000001/view.do?menuNo=200100&kppBCode=&kppMCode=&kppSCode=&subTab=SC001&entYn=N&clasKeyword=#soap_ADI_0000000000010163)  |
 | 6    | 해외| free_search    | 해외 특허 자유 검색 | [link](https://plus.kipris.or.kr/portal/popup/service/DBII_000000000000036/view.do#soap_ADI_0000000000001478)  |
-| 7    | 해외| applicant_search_tool    | 특허 출원인 검색 | [link](https://plus.kipris.or.kr/portal/popup/service/DBII_000000000000036/view.do#soap_ADI_0000000000001500)  |
-| 8    | 해외| application_number_search_tool    | 특허 출원 번호 검색 | [link](https://plus.kipris.or.kr/portal/popup/service/DBII_000000000000036/view.do#soap_ADI_0000000000001488)  |
-| 9    | 해외| internationl_application_number_search_tool    | 특허 국제 출원 번호 검색 | [link](https://plus.kipris.or.kr/portal/popup/service/DBII_000000000000036/view.do#soap_ADI_0000000000001503)  |
-| 10   | 해외| internationl_open_number_search_tool    | 특허 국제 공개 번호 검색 | [link](https://plus.kipris.or.kr/portal/popup/service/DBII_000000000000036/view.do#soap_ADI_0000000000001492)  |
+| 7    | 해외| applicant_search_tool    | 해외 특허 출원인 검색 | [link](https://plus.kipris.or.kr/portal/popup/service/DBII_000000000000036/view.do#soap_ADI_0000000000001500)  |
+| 8    | 해외| application_number_search_tool    | 해외 특허 출원 번호 검색 | [link](https://plus.kipris.or.kr/portal/popup/service/DBII_000000000000036/view.do#soap_ADI_0000000000001488)  |
+| 9    | 해외| internationl_application_number_search_tool    | 해외 특허 국제 출원 번호 검색 | [link](https://plus.kipris.or.kr/portal/popup/service/DBII_000000000000036/view.do#soap_ADI_0000000000001503)  |
+| 10   | 해외| internationl_open_number_search_tool    | 해외 특허 국제 공개 번호 검색 | [link](https://plus.kipris.or.kr/portal/popup/service/DBII_000000000000036/view.do#soap_ADI_0000000000001492)  |
 
 - 해외 특허는 권리자 검색이 kipris에서 제공하지 않습니다. 
 - 해외 특허 국가 코드 
