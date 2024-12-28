@@ -1,11 +1,11 @@
-from langchain_kipris_tools.kipris_api.korean.patent_keyword_search_api import PatentSearchAPI
+from langchain_kipris_tools.kipris_api.korean import PatentFreeSearchAPI
 from langchain_core.tools import BaseTool
 from pydantic import BaseModel, Field
 import typing as t
 import pandas as pd
 
-class PatentKeywordSearchArgs(BaseModel):
-    query: str = Field("", description="Search query, default is an empty string. if this is empty, then i should ask user to input query.")
+class PatentKeywordSearchArgs(BaseModel):   
+    word: str = Field("", description="Search query, default is an empty string. if this is empty, then i should ask user to input query.")
     patent: bool = Field(True, description="Include patents, default is True")
     utility: bool = Field(True, description="Include utility, default is True")
     lastvalue:  str = Field("", description="Patent registration status; (전체:공백입력, 공개:A, 취하:C, 소멸:F, 포기:G, 무효:I, 거절:J, 등록:R)")
@@ -18,10 +18,11 @@ class PatentKeywordSearchArgs(BaseModel):
 class PatentKeywordSearchTool(BaseTool):
     name:str = "patent_keyword_search"
     description:str = "patent search by keyword"
-    api:PatentSearchAPI = PatentSearchAPI()
+    api:PatentFreeSearchAPI = PatentFreeSearchAPI()
     args_schema:t.Type[BaseModel] = PatentKeywordSearchArgs
     return_direct: bool = False
 
-    def _run(self, query:str, patent:bool=True, utility:bool=True, lastvalue:str="", docs_start:int=0, docs_count:int=10, desc_sort:bool=True, sort_spec:str="AD")->pd.DataFrame:
-        result = self.api.search(query, patent=patent, utility=utility, lastvalue=lastvalue, docs_start=docs_start, docs_count=docs_count, sort_spec=sort_spec, desc_sort=desc_sort)
+    def _run(self, word:str, patent:bool=True, utility:bool=True, lastvalue:str="", docs_start:int=0, docs_count:int=10, desc_sort:bool=True, sort_spec:str="AD")->pd.DataFrame:
+        result = self.api.search(word, patent=patent, utility=utility, lastvalue=lastvalue, docs_start=docs_start, docs_count=docs_count, sort_spec=sort_spec, desc_sort=desc_sort)
         return result
+

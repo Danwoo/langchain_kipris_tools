@@ -2,11 +2,14 @@ from langchain_kipris_tools.kipris_api.abs_class import ABSKiprisAPI
 from langchain_kipris_tools.kipris_api.utils import get_nested_key_value
 import typing as t
 import pandas as pd
+from logging import getLogger
+import urllib.parse
+logger = getLogger(__name__)
 
-class PatentSearchAPI(ABSKiprisAPI):
+class PatentFreeSearchAPI(ABSKiprisAPI):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)        
-        self.api_url = "http://plus.kipris.or.kr/kipo-api/kipi/patUtiModInfoSearchSevice/getAdvancedSearch"
+        self.api_url = "http://plus.kipris.or.kr/kipo-api/kipi/patUtiModInfoSearchSevice/freeSearchInfo"
 
     def search(self, word:str,
                 patent:bool=True,
@@ -54,7 +57,8 @@ class PatentSearchAPI(ABSKiprisAPI):
             pd.DataFrame: _description_
         """
         # api url https://plus.kipris.or.kr/portal/data/service/DBII_000000000000001/view.do?menuNo=200100&kppBCode=&kppMCode=&kppSCode=&subTab=SC001&entYn=N&clasKeyword=#soap_ADI_0000000000002944
-
+        word = urllib.parse.quote(word)
+        logger.info(f"word: {word}")
         response = self.common_call(api_url=self.api_url,
                                   api_key_field="ServiceKey",
                                   word=word,
@@ -68,6 +72,7 @@ class PatentSearchAPI(ABSKiprisAPI):
                                   **kwargs)
         patents = get_nested_key_value(response, "response.body.items.item")
         if patents is None:
+            logger.info("patents is None")
             return pd.DataFrame()
         if isinstance(patents, t.Dict):
             patents = [patents]

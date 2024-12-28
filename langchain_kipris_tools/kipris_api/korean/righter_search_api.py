@@ -3,9 +3,11 @@ from langchain_kipris_tools.kipris_api.utils import get_nested_key_value
 import typing as t
 import pandas as pd
 from logging import getLogger
+import urllib.parse
+
 logger = getLogger(__name__)
 
-class RighterSearchAPI(ABSKiprisAPI):
+class PatentRighterSearchAPI(ABSKiprisAPI):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.api_url = "http://plus.kipris.or.kr/openapi/rest/patUtiModInfoSearchSevice/rightHolerSearchInfo"
@@ -17,6 +19,10 @@ class RighterSearchAPI(ABSKiprisAPI):
                                lastvalue:str="",
                                sort_spec:str="AD",
                                desc_sort:bool=False)->pd.DataFrame:
+        if rightHoler:
+            rightHoler = urllib.parse.quote(rightHoler)
+        logger.info(f"rightHoler: {rightHoler}")
+        
         response = self.common_call(api_url=self.api_url, rightHoler=rightHoler,
                                     docs_start=str(docs_start),
                                     docs_count=str(docs_count),
@@ -27,10 +33,8 @@ class RighterSearchAPI(ABSKiprisAPI):
                                     desc_sort= 'true' if desc_sort else 'false'
                                   )
         patents = get_nested_key_value(response, "response.body.items.PatentUtilityInfo")
-        print('권리자 검색 결과')
-        print(type(patents))
-        if patents is None:
-            print("patents is None")
+        
+        if patents is None:            
             logger.info("patents is None")
             return pd.DataFrame()
         if isinstance(patents, t.Dict):

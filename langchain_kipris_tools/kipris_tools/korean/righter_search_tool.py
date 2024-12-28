@@ -1,9 +1,9 @@
-from langchain_kipris_tools.kipris_api.korean.righter_search_api import RighterSearchAPI
+from langchain_kipris_tools.kipris_api.korean.righter_search_api import PatentRighterSearchAPI
 from langchain_core.tools import BaseTool
 from pydantic import BaseModel, Field
 import typing as t
 import pandas as pd
-class RighterSearchArgs(BaseModel):
+class PatentRighterSearchArgs(BaseModel):
     righter: str = Field(...,min_length=1, max_length=100, description="Righter name is required")
     docs_start: int = Field(1, description="Start index for documents, default is 1")
     docs_count: int = Field(10, description="Number of documents to return, default is 10, range is 1-30")
@@ -14,11 +14,11 @@ class RighterSearchArgs(BaseModel):
     desc_sort: bool = Field(True, description="Sort in descending order; default is True, when True, sort by descending order.it mean latest date first.")
 
 
-class RighterSearchTool(BaseTool):
-    name:str = "righter_search"
+class PatentRighterSearchTool(BaseTool):
+    name:str = "patent_righter_search"
     description:str = "patent search by righter name"
-    api:RighterSearchAPI = RighterSearchAPI()
-    args_schema:t.Type[BaseModel] = RighterSearchArgs
+    api:PatentRighterSearchAPI = PatentRighterSearchAPI()
+    args_schema:t.Type[BaseModel] = PatentRighterSearchArgs
     return_direct: bool = False
 
     def _run(self, righter:str, docs_start:int=1, docs_count:int=10, patent:bool=True, utility:bool=True, lastvalue:str="", sort_spec:str="AD", desc_sort:bool=True)->pd.DataFrame:

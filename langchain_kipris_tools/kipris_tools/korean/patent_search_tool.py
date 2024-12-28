@@ -1,11 +1,11 @@
-from langchain_kipris_tools.kipris_api.korean.patent_search_api import PatentSearchAPI
+from langchain_kipris_tools.kipris_api.korean import PatentSearchAPI
 from langchain_core.tools import BaseTool
 from pydantic import BaseModel, Field
 import typing as t
 import pandas as pd
 
 class PatentSearchArgs(BaseModel):
-    word: str = Field("", description="Search query, default is an empty string. if this is empty, then i should ask user to input query.")
+    word: str = Field("", description="Search query, default is an empty string. this field can be empty")
     invention_title: t.Optional[str] = Field("", description="Invention title")
     abst_cont: t.Optional[str] = Field("", description="Abstract content")
     claim_scope: t.Optional[str] = Field("", description="Claim scope")
@@ -45,6 +45,8 @@ class PatentSearchTool(BaseTool):
 
     def _run(self, word:str, patent:bool=True, utility:bool=True, lastvalue:str='', page_no:int=1, num_of_rows:int=10, desc_sort:bool=True, sort_spec:str='AD', **kwargs)->pd.DataFrame:
         if not word:
-            raise ValueError("word is required")
+            if len(kwargs) == 0:    
+                raise ValueError("you must provide word or other search fields")
+            
         result = self.api.search(word=word, patent=patent, utility=utility, lastvalue=lastvalue, page_no=page_no, num_of_rows=num_of_rows, desc_sort=desc_sort, sort_spec=sort_spec, **kwargs)
         return result
