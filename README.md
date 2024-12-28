@@ -193,9 +193,11 @@ result = call_with_tool("최신 특허중 현대자동차 특허 10개를 표시
 
 print(result)
 ```
+동작 결과 
+![image](assets/foreign_patent_search.png)
 
 
-실제 사용 예제 
+Streamlit 예제 
 ![image](assets/useage.png)
 
 변경 내역 
@@ -213,7 +215,7 @@ print(result)
         - 한국 특허 : PatentKorean prefix 추가 
         - 해외 특허 : PatentForeign prefix 추가 
     - 한국 특허 출원 번호 검색 버그 수정
-    
+
 
 - 2024-12-25 
     - 패키지 의존성 변경
