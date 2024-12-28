@@ -4,7 +4,10 @@ import typing as t
 import pandas as pd
 from langchain_kipris_tools.kipris_api.foreign.code import count_dict, sort_field_dict
 import urllib.parse
-class PatentSearchAPI(ABSKiprisAPI):
+from logging import getLogger
+logger = getLogger(__name__)
+
+class ForeignPatentFreeSearchAPI(ABSKiprisAPI):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)        
         self.api_url = "http://plus.kipris.or.kr/openapi/rest/ForeignPatentAdvencedSearchService/freeSearch"
@@ -33,6 +36,7 @@ class PatentSearchAPI(ABSKiprisAPI):
             raise ValueError(f"collection_values must be in {count_dict.keys()}")
         if sort_field not in sort_field_dict :
             raise ValueError(f"sort_field must be in {sort_field_dict.keys()}")
+        logger.info(f"search word: {free}")
         free = urllib.parse.quote(free)
         response = self.common_call(api_url=self.api_url,
                                   api_key_field="accessKey",
@@ -43,6 +47,7 @@ class PatentSearchAPI(ABSKiprisAPI):
                                   collection_values=str(collection_values))
         patents = get_nested_key_value(response, "response.body.items.searchResult")
         if patents is None:
+            logger.info("patents is None")
             return pd.DataFrame()
         if isinstance(patents, t.Dict):
             patents = [patents]
