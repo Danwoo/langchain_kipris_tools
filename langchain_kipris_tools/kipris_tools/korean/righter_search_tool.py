@@ -16,7 +16,7 @@ class PatentRighterSearchArgs(BaseModel):
 
 class PatentRighterSearchTool(BaseTool):
     name:str = "patent_righter_search"
-    description:str = "patent search by righter name"
+    description:str = "patent search by righter name. this tool is for korean patent search"
     api:PatentRighterSearchAPI = PatentRighterSearchAPI()
     args_schema:t.Type[BaseModel] = PatentRighterSearchArgs
     return_direct: bool = False

@@ -14,7 +14,7 @@ class ForeignPatentApplicationNumberSearchArgs(BaseModel):
     
 class ForeignPatentApplicationNumberSearchTool(BaseTool):
     name:str = "foreign_patent_application_number_search"
-    description:str = "foreign patent search by application number"
+    description:str = "foreign patent search by application number, this tool is for foreign(US, EP, WO, JP, PJ, CP, CN, TW, RU, CO, SE, ES, IL) patent search"
     api:ForeignPatentApplicationNumberSearchAPI = ForeignPatentApplicationNumberSearchAPI()
     args_schema:t.Type[BaseModel] = ForeignPatentApplicationNumberSearchArgs
     return_direct: bool = False

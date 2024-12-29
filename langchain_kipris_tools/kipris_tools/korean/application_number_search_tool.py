@@ -16,7 +16,7 @@ class PatentApplicationNumberSearchArgs(BaseModel):
 
 class PatentApplicationNumberSearchTool(BaseTool):
     name:str = "patent_application_number_search"
-    description:str = "patent search by application number"
+    description:str = "patent search by application number, this tool is for korean patent search"
     api:PatentApplicationNumberSearchAPI = PatentApplicationNumberSearchAPI()
     args_schema:t.Type[BaseModel] = PatentApplicationNumberSearchArgs
     return_direct: bool = False
