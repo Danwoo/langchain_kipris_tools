@@ -3,8 +3,10 @@ import typing as t
 from langchain_kipris_tools.kipris_api.utils import get_response
 from dotenv import load_dotenv
 from stringcase import camelcase
-load_dotenv()
+from icecream import ic
 
+load_dotenv()
+ic.disable()
 class ABSKiprisAPI:
     def __init__(self, **kwargs):
         if "api_key" in kwargs:
@@ -32,5 +34,5 @@ class ABSKiprisAPI:
                 query += "&%s=%s"%(camelcase(k),v)
         api_key = "&%s=%s"%(api_key_field,self.api_key)
         full_url = f"{api_url}?{query[1:]}{api_key}"
-        print(full_url)
+        ic(full_url)
         return get_response(full_url)

@@ -37,7 +37,7 @@ class PatentSearchArgs(BaseModel):
 
 
 class PatentSearchTool(BaseTool):
-    name:str = "patent_search"
+    name:str = "korean_patent_search"
     description:str = "patent search many fields, this tool is for korean patent search"
     api:PatentSearchAPI = PatentSearchAPI()
     args_schema:t.Type[BaseModel] = PatentSearchArgs
