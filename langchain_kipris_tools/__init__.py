@@ -32,3 +32,20 @@ class LangChainKiprisForeignTools:
     def get_tools(self) -> t.List[BaseTool]:
         tool_list = [ForeignPatentFreeSearchTool(), ForeignPatentInternationalApplicationNumberSearchTool(), ForeignPatentInternationalOpenNumberSearchTool(), ForeignPatentApplicantSearchTool(), ForeignPatentApplicationNumberSearchTool()]
         return tool_list
+
+class LangChainKiprisTools:
+    def set_api_key(self, api_key: str):
+        self.api_key = api_key
+        os.environ['KIPRIS_API_KEY'] = api_key
+    def get_tools(self) -> t.List[BaseTool]:
+        tool_list = [KoreanPatentApplicantSearchTool(),
+                     KoreanPatentKeywordSearchTool(), 
+                     KoreanPatentSearchTool(), 
+                     KoreanPatentRighterSearchTool(), 
+                     KoreanPatentApplicationNumberSearchTool(),
+                     ForeignPatentFreeSearchTool(),
+                     ForeignPatentInternationalApplicationNumberSearchTool(),
+                     ForeignPatentInternationalOpenNumberSearchTool(),
+                     ForeignPatentApplicantSearchTool(),
+                     ForeignPatentApplicationNumberSearchTool()]
+        return tool_list
