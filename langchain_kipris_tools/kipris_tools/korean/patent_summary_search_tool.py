@@ -1,19 +1,19 @@
-from langchain_kipris_tools.kipris_api.korean import PatentDetailSearchAPI
+from langchain_kipris_tools.kipris_api.korean import PatentSummarySearchAPI
 from langchain_core.tools import BaseTool
 from pydantic import BaseModel, Field
 import typing as t
 import pandas as pd
 
-class PatentDetailSearchArgs(BaseModel):
+class PatentSummarySearchArgs(BaseModel):
     application_number: str = Field("", description="Application number")    
 
-class PatentDetailSearchTool(BaseTool):
-    name:str = "korean_patent_detail_search"
-    description:str = "patent detail search. you provide application number then it will return patent detail"
-    api:PatentDetailSearchAPI = PatentDetailSearchAPI()
-    args_schema:t.Type[BaseModel] = PatentDetailSearchArgs
+class PatentSummarySearchTool(BaseTool):
+    name:str = "korean_patent_summary_search"
+    description:str = "patent summary search. you provide application number then it will return patent summary"
+    api:PatentSummarySearchAPI = PatentSummarySearchAPI()
+    args_schema:t.Type[BaseModel] = PatentSummarySearchArgs
     return_direct: bool = False
-
+    
     def _run(self, application_number:str)->pd.DataFrame:
         if not application_number:
             raise ValueError("you must provide application_number")

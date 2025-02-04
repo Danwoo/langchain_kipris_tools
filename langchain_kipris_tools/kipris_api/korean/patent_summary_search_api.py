@@ -8,12 +8,12 @@ from logging import getLogger
 
 logger = getLogger(__name__)
 
-class PatentDetailSearchAPI(ABSKiprisAPI):
+class PatentSummarySearchAPI(ABSKiprisAPI):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)        
-        self.api_url = "http://plus.kipris.or.kr/kipo-api/kipi/patUtiModInfoSearchSevice/getBibliographyDetailInfoSearch"
+        self.api_url = "http://plus.kipris.or.kr/kipo-api/kipi/patUtiModInfoSearchSevice/getBibliographySumryInfoSearch"
 
-    def search(self, application_number:str, **kwargs)->t.Dict:
+    def search(self, application_number:str, **kwargs)->pd.DataFrame:
         """_summary_
 
         Args:
@@ -21,9 +21,8 @@ class PatentDetailSearchAPI(ABSKiprisAPI):
         Returns:
             pd.DataFrame: _description_
         """
-        # url encoding
-        if application_number :
-            application_number = urllib.parse.quote(application_number)
+        if not application_number:
+            raise ValueError("application_number is required")
             
         parameters = {**kwargs}
         for key, value in parameters.items():
@@ -34,9 +33,10 @@ class PatentDetailSearchAPI(ABSKiprisAPI):
         response = self.common_call(api_url=self.api_url,
                                   api_key_field="ServiceKey",
                                   application_number=application_number)
-        patents = get_nested_key_value(response, "response.body.item")
-        logger.info(patents)
+        patents = get_nested_key_value(response, "response.body.items.item")
         if patents is None:
             logger.info("patents is None")
-            return {}        
-        return patents
+            return pd.DataFrame()
+        if isinstance(patents, t.Dict):
+            patents = [patents]
+        return pd.DataFrame(patents)

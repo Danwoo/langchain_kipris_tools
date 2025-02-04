@@ -4,6 +4,8 @@ from langchain_kipris_tools.kipris_tools.korean import (
     KoreanPatentSearchTool,
     KoreanPatentRighterSearchTool,
     KoreanPatentApplicationNumberSearchTool,
+    KoreanPatentSummarySearchTool,
+    KoreanPatentDetailSearchTool,
 )
 
 from langchain_kipris_tools.kipris_tools.foreign import (
@@ -20,6 +22,8 @@ __all__ = [
     "KoreanPatentSearchTool",
     "KoreanPatentRighterSearchTool",
     "KoreanPatentApplicationNumberSearchTool",
+    "KoreanPatentSummarySearchTool",
+    "KoreanPatentDetailSearchTool",
     "ForeignPatentApplicantSearchTool",
     "ForeignPatentApplicationNumberSearchTool",
     "ForeignPatentFreeSearchTool",

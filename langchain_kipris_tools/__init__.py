@@ -1,16 +1,21 @@
 __version__ = '0.0.2'
 from langchain_kipris_tools.kipris_tools import(
+    # tool for korean patent search
     KoreanPatentApplicantSearchTool, 
     KoreanPatentKeywordSearchTool, 
     KoreanPatentSearchTool, 
     KoreanPatentRighterSearchTool, 
     KoreanPatentApplicationNumberSearchTool,
+    KoreanPatentSummarySearchTool,
+    KoreanPatentDetailSearchTool,
+    # tool for foreign patent search
     ForeignPatentFreeSearchTool,
     ForeignPatentInternationalApplicationNumberSearchTool,
     ForeignPatentInternationalOpenNumberSearchTool,
     ForeignPatentApplicantSearchTool,
     ForeignPatentApplicationNumberSearchTool,
-    )       
+    
+)       
 
 
 import os
@@ -22,7 +27,13 @@ class LangChainKiprisKoreanTools:
         self.api_key = api_key
         os.environ['KIPRIS_API_KEY'] = api_key
     def get_tools(self) -> t.List[BaseTool]:
-        tool_list = [KoreanPatentApplicantSearchTool(), KoreanPatentKeywordSearchTool(), KoreanPatentSearchTool(), KoreanPatentRighterSearchTool(), KoreanPatentApplicationNumberSearchTool()]
+        tool_list = [KoreanPatentApplicantSearchTool(),
+                     KoreanPatentKeywordSearchTool(), 
+                     KoreanPatentSearchTool(), 
+                     KoreanPatentRighterSearchTool(), 
+                     KoreanPatentApplicationNumberSearchTool(),
+                     KoreanPatentSummarySearchTool(),
+                     KoreanPatentDetailSearchTool()]
         return tool_list
 
 class LangChainKiprisForeignTools:
@@ -30,7 +41,8 @@ class LangChainKiprisForeignTools:
         self.api_key = api_key
         os.environ['KIPRIS_API_KEY'] = api_key
     def get_tools(self) -> t.List[BaseTool]:
-        tool_list = [ForeignPatentFreeSearchTool(), ForeignPatentInternationalApplicationNumberSearchTool(), ForeignPatentInternationalOpenNumberSearchTool(), ForeignPatentApplicantSearchTool(), ForeignPatentApplicationNumberSearchTool()]
+        tool_list = [ForeignPatentFreeSearchTool(),
+                    ForeignPatentInternationalApplicationNumberSearchTool(), ForeignPatentInternationalOpenNumberSearchTool(), ForeignPatentApplicantSearchTool(), ForeignPatentApplicationNumberSearchTool()]
         return tool_list
 
 class LangChainKiprisTools:
@@ -43,6 +55,8 @@ class LangChainKiprisTools:
                      KoreanPatentSearchTool(), 
                      KoreanPatentRighterSearchTool(), 
                      KoreanPatentApplicationNumberSearchTool(),
+                     KoreanPatentSummarySearchTool(),
+                     KoreanPatentDetailSearchTool(),
                      ForeignPatentFreeSearchTool(),
                      ForeignPatentInternationalApplicationNumberSearchTool(),
                      ForeignPatentInternationalOpenNumberSearchTool(),

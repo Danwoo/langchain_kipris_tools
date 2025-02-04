@@ -5,8 +5,15 @@ from dotenv import load_dotenv
 from stringcase import camelcase
 from icecream import ic
 
+import logging
+logging.basicConfig(
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    level=logging.INFO,  # INFO 레벨을 출력
+    handlers=[logging.StreamHandler()]
+)
+logger = logging.getLogger(__name__)    
 load_dotenv()
-ic.disable()
+# ic.disable()
 class ABSKiprisAPI:
     def __init__(self, **kwargs):
         if "api_key" in kwargs:
@@ -33,6 +40,7 @@ class ABSKiprisAPI:
             if v is not None and v != "":
                 query += "&%s=%s"%(camelcase(k),v)
         api_key = "&%s=%s"%(api_key_field,self.api_key)
-        full_url = f"{api_url}?{query[1:]}{api_key}"
-        ic(full_url)
+        full_url = f"{api_url}?{query[1:]}{api_key}"        
+        logger.info(full_url)        
         return get_response(full_url)
+
