@@ -24,7 +24,7 @@ tools = kipristools.get_tools()
 | 3    | 한국| patent_applicant_search_tool | 특허 출원인 검색    | [link](https://plus.kipris.or.kr/portal/popup/DBII_000000000000001/SC002/ADI_0000000000015118/apiDescriptionSearch.do)                                                                      |
 | 4    | 한국| patent_righter_search_tool   | 특허 권리자 검색    | [link](https://plus.kipris.or.kr/portal/data/service/DBII_000000000000001/view.do?menuNo=200100&kppBCode=&kppMCode=&kppSCode=&subTab=SC001&entYn=N&clasKeyword=#soap_ADI_0000000000015121)  |
 | 5    | 한국| patent_number_search_tool    | 특허 출원 번호 검색 | [link](https://plus.kipris.or.kr/portal/data/service/DBII_000000000000001/view.do?menuNo=200100&kppBCode=&kppMCode=&kppSCode=&subTab=SC001&entYn=N&clasKeyword=#soap_ADI_0000000000010163)  |
-| 6    | 한국| patent_detail_search_tool    | 특허 상세 검색 | [link](https://plus.kipris.or.kr/portal/data/service/DBII_000000000000001/view.do?menuNo=200100&kppBCode=&kppMCode=&kppSCode=&subTab=SC001&entYn=N&clasKeyword=#soap_ADI_0000000000010163)  |
+| 6    | 한국| patent_detail_search_tool    | 특허 상세 검색 | [link](https://plus.kipris.or.kr/portal/popup/service/DBII_000000000000001/view.do#soap_ADI_0000000000002130)  |
 | 7    | 해외| free_search    | 해외 특허 자유 검색 | [link](https://plus.kipris.or.kr/portal/popup/service/DBII_000000000000036/view.do#soap_ADI_0000000000001478)  |
 | 8    | 해외| applicant_search_tool    | 해외 특허 출원인 검색 | [link](https://plus.kipris.or.kr/portal/popup/service/DBII_000000000000036/view.do#soap_ADI_0000000000001500)  |
 | 9    | 해외| application_number_search_tool    | 해외 특허 출원 번호 검색 | [link](https://plus.kipris.or.kr/portal/popup/service/DBII_000000000000036/view.do#soap_ADI_0000000000001488)  |
