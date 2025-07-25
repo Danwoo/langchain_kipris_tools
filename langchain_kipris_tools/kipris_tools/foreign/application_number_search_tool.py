@@ -8,9 +8,9 @@ from langchain_kipris_tools.kipris_api.foreign.code import count_dict, sort_fiel
 class ForeignPatentApplicationNumberSearchArgs(BaseModel):
     application_number: str = Field("", description="application number, it must be filled")
     current_page: t.Optional[int] = Field(1, description="Current page number")
-    sort_field: t.Optional[str] = Field("AD", description="Sort field")
-    sort_state: t.Optional[bool] = Field(True, description="Sort state")
-    collection_values: t.Optional[str] = Field("US", description="Collection values, default is US. other wise US, EP, WO, JP, PJ, CP, CN, TW, RU, CO, SE, ES, IL")
+    sort_field: t.Optional[str] = Field("AD", description="Sorting option\n- 'AD': Sort by application date (출원일자) - for latest applications\n- 'GD': Sort by registration date (등록일자) - for latest registrations\n- 'PD': Sort by publication date (공고일자) - for latest publications\n- 'OPD': Sort by open date (공개일자) - for latest disclosures")
+    sort_state: t.Optional[bool] = Field(True, description="Sort state(True or False)")
+    collection_values: t.Optional[str] = Field("US", description="Collection value. Must be one of the following: [US, EP, WO, JP, PJ, CP, CN, TW, RU, CO, SE, ES, IL]. If not specified, the default is US.Exactly one value must be selected.")
     
 class ForeignPatentApplicationNumberSearchTool(BaseTool):
     name:str = "foreign_patent_application_number_search"
