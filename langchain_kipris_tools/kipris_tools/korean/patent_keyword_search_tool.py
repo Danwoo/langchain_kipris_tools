@@ -4,25 +4,67 @@ from pydantic import BaseModel, Field
 import typing as t
 import pandas as pd
 
-class PatentKeywordSearchArgs(BaseModel):   
-    word: str = Field("", description="Search query, default is an empty string. if this is empty, then i should ask user to input query.")
+
+class PatentKeywordSearchArgs(BaseModel):
+    word: str = Field(
+        "",
+        description="Search query, default is an empty string. if this is empty, then i should ask user to input query.",
+    )
     patent: bool = Field(True, description="Include patents, default is True")
     utility: bool = Field(True, description="Include utility, default is True")
-    lastvalue:  str = Field("", description="Patent registration status; (전체:공백입력, 공개:A, 취하:C, 소멸:F, 포기:G, 무효:I, 거절:J, 등록:R)")
+    lastvalue: str = Field(
+        "",
+        description="Patent registration status; (전체:공백입력, 공개:A, 취하:C, 소멸:F, 포기:G, 무효:I, 거절:J, 등록:R)",
+    )
     docs_start: int = Field(1, description="Start index for documents, default is 0")
-    docs_count: int = Field(10, description="Number of documents to return, default is 10")
-    desc_sort: bool = Field(True, description="Sort in descending order, default is True")
-    sort_spec: str = Field("AD", description="Field to sort by; \n- '' (empty): Default relevance-based sorting(기본정렬)\n- 'AD': Sort by application date (출원일자) - for latest applications\n- 'GD': Sort by registration date (등록일자) - for latest registrations\n- 'PD': Sort by publication date (공고일자) - for latest publications\n- 'OPD': Sort by open date (공개일자) - for latest disclosures")
+    docs_count: int = Field(
+        10, description="Number of documents to return, default is 10"
+    )
+    desc_sort: bool = Field(
+        True, description="Sort in descending order, default is True"
+    )
+    sort_spec: str = Field(
+        "AD",
+        description="Field to sort by; \n- '' (empty): Default relevance-based sorting(기본정렬)\n- 'AD': Sort by application date (출원일자) - for latest applications\n- 'GD': Sort by registration date (등록일자) - for latest registrations\n- 'PD': Sort by publication date (공고일자) - for latest publications\n- 'OPD': Sort by open date (공개일자) - for latest disclosures",
+    )
+
+    class Config:
+        safe_retry_params = {
+            "critical": ["word"],
+            "optional": ["docs_count", "sort_spec"],
+            "safe_defaults": {
+                "docs_count": [5],
+                "sort_spec": "AD",
+            },
+        }
 
 
 class PatentKeywordSearchTool(BaseTool):
-    name:str = "korean_patent_keyword_search"
-    description:str = "patent search by keyword, this tool is for korean patent search"
-    api:PatentFreeSearchAPI = PatentFreeSearchAPI()
-    args_schema:t.Type[BaseModel] = PatentKeywordSearchArgs
+    name: str = "korean_patent_keyword_search"
+    description: str = "patent search by keyword, this tool is for korean patent search"
+    api: PatentFreeSearchAPI = PatentFreeSearchAPI()
+    args_schema: t.Type[BaseModel] = PatentKeywordSearchArgs
     return_direct: bool = False
 
-    def _run(self, word:str, patent:bool=True, utility:bool=True, lastvalue:str="", docs_start:int=0, docs_count:int=10, desc_sort:bool=True, sort_spec:str="AD")->pd.DataFrame:
-        result = self.api.search(word, patent=patent, utility=utility, lastvalue=lastvalue, docs_start=docs_start, docs_count=docs_count, sort_spec=sort_spec, desc_sort=desc_sort)
+    def _run(
+        self,
+        word: str,
+        patent: bool = True,
+        utility: bool = True,
+        lastvalue: str = "",
+        docs_start: int = 0,
+        docs_count: int = 10,
+        desc_sort: bool = True,
+        sort_spec: str = "AD",
+    ) -> pd.DataFrame:
+        result = self.api.search(
+            word,
+            patent=patent,
+            utility=utility,
+            lastvalue=lastvalue,
+            docs_start=docs_start,
+            docs_count=docs_count,
+            sort_spec=sort_spec,
+            desc_sort=desc_sort,
+        )
         return result
-
