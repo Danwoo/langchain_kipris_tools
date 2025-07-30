@@ -65,9 +65,8 @@ def get_response(url: str) -> t.Dict:
         except ExpatError:
             raise Exception("response is not xml check query url [%s] response [%s]", url, response_text[0:100])
         json_data = json.loads(json.dumps(dict_type))
-        result_header = get_nested_key_value(json_data, "response.header", default_value="")
-        logger.info("__kipris__:[%s]:[%s] :result header : [%s]",
-                            key_str, url[24:], result_header)
+        # result_header = get_nested_key_value(json_data, "response.header", default_value="")
+        # logger.info("__kipris__:[%s]:[%s] :result header : [%s]", key_str, url[24:], result_header)
         return json_data
 
     except requests.exceptions.Timeout as e:

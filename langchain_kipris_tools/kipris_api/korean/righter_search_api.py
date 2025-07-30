@@ -21,7 +21,7 @@ class PatentRighterSearchAPI(ABSKiprisAPI):
                                desc_sort:bool=False)->pd.DataFrame:
         if rightHoler:
             rightHoler = urllib.parse.quote(rightHoler)
-        logger.info(f"rightHoler: {rightHoler}")
+        # logger.info(f"rightHoler: {rightHoler}")
         
         response = self.common_call(api_url=self.api_url, rightHoler=rightHoler,
                                     docs_start=str(docs_start),
@@ -35,7 +35,7 @@ class PatentRighterSearchAPI(ABSKiprisAPI):
         patents = get_nested_key_value(response, "response.body.items.PatentUtilityInfo")
         
         if patents is None:            
-            logger.info("patents is None")
+            # logger.info("patents is None")
             return pd.DataFrame()
         if isinstance(patents, t.Dict):
             patents = [patents]

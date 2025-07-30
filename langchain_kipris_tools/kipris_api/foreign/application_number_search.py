@@ -35,7 +35,7 @@ class ForeignPatentApplicationNumberSearchAPI(ABSKiprisAPI):
             raise ValueError(f"collection_values must be in {count_dict.keys()}")
         if sort_field not in sort_field_dict :
             raise ValueError(f"sort_field must be in {sort_field_dict.keys()}")
-        logger.info(f"application_number: {application_number}")
+        # logger.info(f"application_number: {application_number}")
         response = self.common_call(api_url=self.api_url,
                                   api_key_field="accessKey",
                                   application_number=application_number,

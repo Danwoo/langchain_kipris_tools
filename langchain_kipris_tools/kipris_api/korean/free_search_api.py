@@ -4,14 +4,14 @@ import typing as t
 import pandas as pd
 
 import urllib.parse
-import logging
+# import logging
 
-logging.basicConfig(
-    format="%(asctime)s - %(levelname)s - %(message)s",
-    level=logging.INFO,  # INFO 레벨을 출력
-    handlers=[logging.StreamHandler()],
-)
-logger = logging.getLogger(__name__)
+# logging.basicConfig(
+#     format="%(asctime)s - %(levelname)s - %(message)s",
+#     level=logging.INFO,  # INFO 레벨을 출력
+#     handlers=[logging.StreamHandler()],
+# )
+# logger = logging.getLogger(__name__)
 
 
 class PatentFreeSearchAPI(ABSKiprisAPI):
@@ -69,7 +69,7 @@ class PatentFreeSearchAPI(ABSKiprisAPI):
         """
         # api url https://plus.kipris.or.kr/portal/data/service/DBII_000000000000001/view.do?menuNo=200100&kppBCode=&kppMCode=&kppSCode=&subTab=SC001&entYn=N&clasKeyword=#soap_ADI_0000000000002944
         word = urllib.parse.quote(word)
-        logger.info(f"word: {word}")
+        # logger.info(f"word: {word}")
         response = self.common_call(
             api_url=self.api_url,
             api_key_field="accessKey",
@@ -87,9 +87,9 @@ class PatentFreeSearchAPI(ABSKiprisAPI):
             response, "response.body.items.PatentUtilityInfo"
         )
 
-        logger.info(patents)
+        # logger.info(patents)
         if patents is None:
-            logger.info("patents is None")
+            # logger.info("patents is None")
             return pd.DataFrame()
         if isinstance(patents, t.Dict):
             patents = [patents]

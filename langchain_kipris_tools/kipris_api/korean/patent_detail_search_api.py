@@ -29,13 +29,13 @@ class PatentDetailSearchAPI(ABSKiprisAPI):
         for key, value in parameters.items():
             parameters[key] = urllib.parse.quote(value)
         
-        logger.info(f"application_number: {application_number}")        
+        # logger.info(f"application_number: {application_number}")        
         
         response = self.common_call(api_url=self.api_url,
                                   api_key_field="ServiceKey",
                                   application_number=application_number)
         patents = get_nested_key_value(response, "response.body.item")
-        logger.info(patents)
+        # logger.info(patents)
         if patents is None:
             logger.info("patents is None")
             return {}        

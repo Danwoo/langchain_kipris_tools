@@ -66,8 +66,8 @@ class PatentSearchAPI(ABSKiprisAPI):
         for key, value in parameters.items():
             parameters[key] = urllib.parse.quote(value)
         
-        logger.info(f"word: {word}")
-        logger.info(f"parameters: {parameters}")    
+        # logger.info(f"word: {word}")
+        # logger.info(f"parameters: {parameters}")    
         
         response = self.common_call(api_url=self.api_url,
                                   api_key_field="ServiceKey",
@@ -82,7 +82,7 @@ class PatentSearchAPI(ABSKiprisAPI):
                                   **parameters)
         patents = get_nested_key_value(response, "response.body.items.item")
         if patents is None:
-            logger.info("patents is None")
+            # logger.info("patents is None")
             return pd.DataFrame()
         if isinstance(patents, t.Dict):
             patents = [patents]

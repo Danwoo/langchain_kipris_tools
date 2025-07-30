@@ -19,7 +19,7 @@ class PatentApplicationNumberSearchAPI(ABSKiprisAPI):
                                lastvalue:str="",
                                sort_spec:str="AD",
                                desc_sort:bool=False)->pd.DataFrame:
-        logger.info(f"application_number: {application_number}")
+        # logger.info(f"application_number: {application_number}")
         response = self.common_call(api_url=self.api_url, application_number=application_number,
                                     docs_start=str(docs_start),
                                     docs_count=str(docs_count),

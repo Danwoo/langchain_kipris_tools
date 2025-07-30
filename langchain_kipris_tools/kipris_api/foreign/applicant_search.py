@@ -33,7 +33,7 @@ class ForeignPatentApplicantSearchAPI(ABSKiprisAPI):
         Returns:
             pd.DataFrame: _description_
         """
-        logger.info(f"applicant: {applicant}")
+        logger.info(f"외국 출원인 검색: {applicant}")
         if collection_values not in count_dict :
             raise ValueError(f"collection_values must be in {count_dict.keys()}")
         if sort_field not in sort_field_dict :

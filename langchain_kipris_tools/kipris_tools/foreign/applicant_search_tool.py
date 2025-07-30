@@ -34,7 +34,7 @@ class ForeignPatentApplicantSearchTool(BaseTool):
             raise ValueError(f"collection_values must be in {count_dict.keys()}")
         if sort_field not in sort_field_dict :
             raise ValueError(f"sort_field must be in {sort_field_dict.keys()}")
-        logger.info(f"applicant: {applicant}")
+        # logger.info(f"applicant: {applicant}")
         
         result = self.api.search(applicant=applicant, 
                                  current_page=current_page, 
