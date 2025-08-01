@@ -10,17 +10,24 @@ from langchain_kipris_tools.kipris_api.foreign.code import count_dict, sort_fiel
 
 class ForeignPatentApplicationNumberSearchArgs(BaseModel):
     application_number: str = Field(
-        "", description="application number, it must be filled"
+        "",
+        description="Application number, looks up specific international patent by exact application number, use country-specific patent application number format (e.g., US: '16/123456', EP: 'EP19123456')",
     )
-    current_page: t.Optional[int] = Field(1, description="Current page number")
-    sort_field: t.Optional[str] = Field(
+    current_page: int = Field(
+        1,
+        description="Page number, sets current page for pagination, use integer starting from 1",
+    )
+    sort_field: str = Field(
         "AD",
-        description="Sorting option\n- 'AD': Sort by application date (출원일자) - for latest applications\n- 'GD': Sort by registration date (등록일자) - for latest registrations\n- 'PD': Sort by publication date (공고일자) - for latest publications\n- 'OPD': Sort by open date (공개일자) - for latest disclosures",
+        description="Sort criteria, determines result ordering by date type, use date codes: 'AD' = application date (출원일자), 'GD' = registration date (등록일자), 'PD' = publication date (공고일자), 'OPD' = open date (공개일자)",
     )
-    sort_state: t.Optional[bool] = Field(True, description="Sort state(True or False)")
-    collection_values: t.Optional[str] = Field(
+    sort_state: bool = Field(
+        True,
+        description="Sort order, controls ascending or descending order, set to True for descending (newest first) or False for ascending",
+    )
+    collection_values: str = Field(
         "US",
-        description="Collection value. Must be one of the following: [US, EP, WO, JP, PJ, CP, CN, TW, RU, CO, SE, ES, IL]. If not specified, the default is US.Exactly one value must be selected.",
+        description="Country database, specifies target patent database by country, select exactly **one** of the following country codes: 'US' = United States, 'EP' = Europe, 'WO' = PCT, 'JP' = Japan, 'PJ' = Japan English Abstract, 'CP' = China, 'CN' = China English Abstract, 'TW' = Taiwan English Abstract, 'RU' = Russia, 'CO' = Colombia, 'SE' = Sweden, 'ES' = Spain, 'IL' = Israel",
     )
 
     class Config:
@@ -36,9 +43,9 @@ class ForeignPatentApplicationNumberSearchArgs(BaseModel):
 
 
 class ForeignPatentApplicationNumberSearchTool(BaseTool):
-    name: str = "foreign_patent_application_number_search"
+    name: str = "international_patent_number_lookup"
     description: str = (
-        "foreign patent search by application number, this tool is for foreign(US, EP, WO, JP, PJ, CP, CN, TW, RU, CO, SE, ES, IL) patent search"
+        "Look up specific international patent by application number. Use for direct patent information retrieval from US, EP, JP, CN and other patent offices."
     )
     api: ForeignPatentApplicationNumberSearchAPI = (
         ForeignPatentApplicationNumberSearchAPI()

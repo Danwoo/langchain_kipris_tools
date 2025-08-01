@@ -8,57 +8,129 @@ import pandas as pd
 class PatentSearchArgs(BaseModel):
     word: str = Field(
         "",
-        description="Search query, default is an empty string. this field can be empty",
+        description="General keywords, searches across all patent fields including title and abstract, use Korean technology terms for broad patent search",
     )
-    invention_title: t.Optional[str] = Field("", description="Invention title")
-    abst_cont: t.Optional[str] = Field("", description="Abstract content")
-    claim_scope: t.Optional[str] = Field("", description="Claim scope")
-    ipc_number: t.Optional[str] = Field("", description="IPC number")
-    application_number: t.Optional[str] = Field("", description="Application number")
-    open_number: t.Optional[str] = Field("", description="Open number")
-    register_number: t.Optional[str] = Field("", description="Register number")
-    priority_application_number: t.Optional[str] = Field(
-        "", description="Priority application number"
-    )
-    international_application_number: t.Optional[str] = Field(
-        "", description="International application number"
-    )
-    international_open_number: t.Optional[str] = Field(
-        "", description="International open number"
-    )
-    application_date: t.Optional[str] = Field("", description="Application date")
-    open_date: t.Optional[str] = Field("", description="Open date")
-    publication_date: t.Optional[str] = Field("", description="Publication date")
-    register_date: t.Optional[str] = Field("", description="Register date")
-    priority_application_date: t.Optional[str] = Field(
-        "", description="Priority application date"
-    )
-    international_application_date: t.Optional[str] = Field(
-        "", description="International application date"
-    )
-    international_open_date: t.Optional[str] = Field(
-        "", description="International open date"
-    )
-    applicant: t.Optional[str] = Field("", description="Applicant")
-    inventor: t.Optional[str] = Field("", description="Inventor")
-    agent: t.Optional[str] = Field("", description="Agent")
-    right_holder: t.Optional[str] = Field("", description="Right holder")
-    patent: bool = Field(True, description="Include patents, default is True")
-    utility: bool = Field(True, description="Include utility, default is True")
-    lastvalue: t.Optional[str] = Field(
+    invention_title: str = Field(
         "",
-        description="Patent registration status; (전체:공백입력, 공개:A, 취하:C, 소멸:F, 포기:G, 무효:I, 거절:J, 등록:R)",
+        description="Patent title, searches specifically in patent invention titles, use exact or partial Korean patent title",
     )
-    page_no: int = Field(1, description="Start index for documents, default is 0")
+    abst_cont: str = Field(
+        "",
+        description="Abstract content, searches patent abstract sections, use Korean technical descriptions found in patent abstracts",
+    )
+    claim_scope: str = Field(
+        "",
+        description="Claim content, searches patent claims sections, use Korean technical terms from patent claims",
+    )
+
+    # Classification and numbers
+    ipc_number: str = Field(
+        "",
+        description="IPC classification, searches by International Patent Classification number, use standard IPC format (e.g., 'H01L21/00')",
+    )
+    application_number: str = Field(
+        "",
+        description="Application number, looks up patent by specific application number, use exact Korean patent application number format (10-13 digits)",
+    )
+    open_number: str = Field(
+        "",
+        description="Publication number, searches by patent publication number, use exact Korean publication number format",
+    )
+    register_number: str = Field(
+        "",
+        description="Registration number, searches by patent registration number, use exact Korean registration number format",
+    )
+    priority_application_number: str = Field(
+        "",
+        description="Priority application number, searches by priority application number from first filing, use exact priority application number format",
+    )
+    international_application_number: str = Field(
+        "",
+        description="PCT application number, searches by international PCT application number, use PCT format (e.g., 'PCT/KR2023/001234')",
+    )
+    international_open_number: str = Field(
+        "",
+        description="PCT publication number, searches by international PCT publication number, use PCT publication format (e.g., 'WO2023/123456')",
+    )
+
+    # Date fields
+    application_date: str = Field(
+        "",
+        description="Application date, searches patents filed on specific date, use YYYY-MM-DD format (e.g., '2023-01-15')",
+    )
+    open_date: str = Field(
+        "",
+        description="Publication date, searches patents published on specific date, use YYYY-MM-DD format (e.g., '2023-06-15')",
+    )
+    publication_date: str = Field(
+        "",
+        description="Gazette date, searches patents published in gazette on specific date, use YYYY-MM-DD format (e.g., '2023-08-15')",
+    )
+    register_date: str = Field(
+        "",
+        description="Registration date, searches patents registered on specific date, use YYYY-MM-DD format (e.g., '2023-12-15')",
+    )
+    priority_application_date: str = Field(
+        "",
+        description="Priority date, searches patents with priority date, use YYYY-MM-DD format (e.g., '2022-01-15')",
+    )
+    international_application_date: str = Field(
+        "",
+        description="PCT filing date, searches patents filed under PCT on specific date, use YYYY-MM-DD format (e.g., '2023-03-15')",
+    )
+    international_open_date: str = Field(
+        "",
+        description="PCT publication date, searches PCT patents published on specific date, use YYYY-MM-DD format (e.g., '2023-09-15')",
+    )
+
+    # People and organizations
+    applicant: str = Field(
+        "",
+        description="Company name, searches patents by applicant organization, use exact Korean company names (e.g., '삼성전자주식회사', '현대자동차')",
+    )
+    inventor: str = Field(
+        "",
+        description="Inventor name, searches patents by inventor name, use Korean inventor names",
+    )
+    agent: str = Field(
+        "",
+        description="Patent agent, searches patents by patent attorney or agent name, use Korean patent agent names",
+    )
+    right_holder: str = Field(
+        "",
+        description="Patent owner, searches patents by current patent rightholder name, use exact Korean company or individual names who currently own the patents",
+    )
+
+    # Document type filters
+    patent: bool = Field(
+        True,
+        description="Patent inclusion, includes patent documents in search results, set to True for patents or False to exclude",
+    )
+    utility: bool = Field(
+        True,
+        description="Utility model inclusion, includes utility model documents in search results, set to True for utility models or False to exclude",
+    )
+    lastvalue: str = Field(
+        "",
+        description="Patent status, filters patents by registration status, use status codes: empty = all patents (전체), 'A' = published (공개), 'C' = withdrawn (취하), 'F' = expired (소멸), 'G' = abandoned (포기), 'I' = invalid (무효), 'J' = rejected (거절), 'R' = registered (등록)",
+    )
+
+    # Pagination and sorting
+    page_no: int = Field(
+        1,
+        description="Page number, sets current page for pagination, use integer starting from 1",
+    )
     num_of_rows: int = Field(
-        10, description="Number of documents to return, default is 10"
+        10,
+        description="Results per page, controls number of patents returned per page, use integer between 1-100",
     )
     desc_sort: bool = Field(
-        True, description="Sort in descending order, default is True"
+        True,
+        description="Sort order, controls ascending or descending order, set to True for descending (newest first) or False for ascending",
     )
     sort_spec: str = Field(
         "AD",
-        description="Field to sort by; \n- '' (empty): Default relevance-based sorting(기본정렬)\n- 'AD': Sort by application date (출원일자) - for latest applications\n- 'GD': Sort by registration date (등록일자) - for latest registrations\n- 'PD': Sort by publication date (공고일자) - for latest publications\n- 'OPD': Sort by open date (공개일자) - for latest disclosures",
+        description="Sort criteria, determines result ordering by date type, use date codes: empty = default relevance sorting (기본정렬), 'AD' = application date (출원일자), 'GD' = registration date (등록일자), 'PD' = publication date (공고일자), 'OPD' = open date (공개일자)",
     )
 
     class Config:
@@ -73,9 +145,9 @@ class PatentSearchArgs(BaseModel):
 
 
 class PatentSearchTool(BaseTool):
-    name: str = "korean_patent_search"
+    name: str = "korean_patent_comprehensive_search"
     description: str = (
-        "patent search many fields, this tool is for korean patent search"
+        "Comprehensive search across all Korean patent fields including title, abstract, claims, and applicant. Use for detailed patent analysis and multi-criteria patent research."
     )
     api: PatentSearchAPI = PatentSearchAPI()
     args_schema: t.Type[BaseModel] = PatentSearchArgs

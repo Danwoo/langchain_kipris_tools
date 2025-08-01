@@ -6,7 +6,10 @@ import pandas as pd
 
 
 class PatentSummarySearchArgs(BaseModel):
-    application_number: str = Field("", description="Application number")
+    application_number: str = Field(
+        "",
+        description="Application number, retrieves patent summary by exact application number, use Korean patent application number format (10-13 digits, e.g., '1020210012345')",
+    )
 
     class Config:
         safe_retry_params = {
@@ -17,9 +20,9 @@ class PatentSummarySearchArgs(BaseModel):
 
 
 class PatentSummarySearchTool(BaseTool):
-    name: str = "korean_patent_summary_search"
+    name: str = "korean_patent_summary_lookup"
     description: str = (
-        "patent summary search. you provide application number then it will return patent summary"
+        "Get patent summary information by providing an exact application number. Use this tool for a quick patent overview and abstract details."
     )
     api: PatentSummarySearchAPI = PatentSummarySearchAPI()
     args_schema: t.Type[BaseModel] = PatentSummarySearchArgs

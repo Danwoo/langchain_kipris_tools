@@ -9,17 +9,23 @@ from langchain_kipris_tools.kipris_api.foreign.code import count_dict, sort_fiel
 class ForeignPatentFreeSearchArgs(BaseModel):
     free: str = Field(
         "",
-        description="Search query, if query has whitespace then transform to web encoding. default is an empty string. this value should be english or collection_values's value if this is empty, then i should ask user to input query.",
+        description="English keywords, searches international patent databases using English technical terms, must use English only (e.g., 'biomass polymerization', 'eco-friendly fiber', 'semiconductor device')",
     )
-    current_page: t.Optional[int] = Field(1, description="Current page number")
-    sort_field: t.Optional[str] = Field(
+    current_page: int = Field(
+        1,
+        description="Page number, sets current page for pagination, use integer starting from 1",
+    )
+    sort_field: str = Field(
         "AD",
-        description="Sorting option\n- 'AD': Sort by application date (출원일자) - for latest applications\n- 'GD': Sort by registration date (등록일자) - for latest registrations\n- 'PD': Sort by publication date (공고일자) - for latest publications\n- 'OPD': Sort by open date (공개일자) - for latest disclosures",
+        description="Sort criteria, determines result ordering by date type, use date codes: 'AD' = application date (출원일자), 'GD' = registration date (등록일자), 'PD' = publication date (공고일자), 'OPD' = open date (공개일자)",
     )
-    sort_state: t.Optional[bool] = Field(True, description="Sort state(True or False)")
-    collection_values: t.Optional[str] = Field(
+    sort_state: bool = Field(
+        True,
+        description="Sort order, controls ascending or descending order, set to True for descending (newest first) or False for ascending",
+    )
+    collection_values: str = Field(
         "US",
-        description="Collection value. Must be one of the following: [US, EP, WO, JP, PJ, CP, CN, TW, RU, CO, SE, ES, IL]. If not specified, the default is US.Exactly one value must be selected.",
+        description="Country database, specifies target patent database by country, select exactly **one** of the following country codes: 'US' = United States, 'EP' = Europe, 'WO' = PCT, 'JP' = Japan, 'PJ' = Japan English Abstract, 'CP' = China, 'CN' = China English Abstract, 'TW' = Taiwan English Abstract, 'RU' = Russia, 'CO' = Colombia, 'SE' = Sweden, 'ES' = Spain, 'IL' = Israel",
     )
 
     class Config:
@@ -38,9 +44,9 @@ class ForeignPatentFreeSearchArgs(BaseModel):
 
 
 class ForeignPatentFreeSearchTool(BaseTool):
-    name: str = "foreign_patent_free_search"
+    name: str = "international_patent_info_search"
     description: str = (
-        "foreign patent search by user input keyword, this tool is for foreign(US, EP, WO, JP, PJ, CP, CN, TW, RU, CO, SE, ES, IL) patent search"
+        "Search international patent databases using English keywords. Select one of the listed two-letter country/regional codes to search."
     )
     api: ForeignPatentFreeSearchAPI = ForeignPatentFreeSearchAPI()
     args_schema: t.Type[BaseModel] = ForeignPatentFreeSearchArgs
