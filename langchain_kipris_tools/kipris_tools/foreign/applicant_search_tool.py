@@ -20,7 +20,7 @@ class ForeignPatentApplicantSearchArgs(BaseModel):
     )
     sort_field: str = Field(
         "AD",
-        description="Sort criteria, determines result ordering by date type, use date codes: 'AD' = application date (출원일자), 'GD' = registration date (등록일자), 'PD' = publication date (공고일자), 'OPD' = open date (공개일자)",
+        description="Sort criteria, determines result ordering by date type, use date codes: 'AD' = application date (출원일자), 'GD' = registration date (등록일자), 'PD' = publication date (공고일자), 'OPD' = open date (공개일자). Default is 'AD' (application date) for descending order (newest first).",
     )
     sort_state: bool = Field(
         True,
