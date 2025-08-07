@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "langchain_kipris_tools"
+version = "0.1.0"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.11"
+
+langchain = "0.3.27"
+langchain-core = "0.3.72"
+requests = "2.32.4"
+xmltodict = "0.14.2"
+python-dotenv = "1.1.1"
+pandas = "2.3.1"
+stringcase = "1.2.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
