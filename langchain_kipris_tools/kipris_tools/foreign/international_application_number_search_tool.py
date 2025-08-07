@@ -48,9 +48,9 @@ class ForeignPatentInternationalApplicationNumberSearchArgs(BaseModel):
 
 
 class ForeignPatentInternationalApplicationNumberSearchTool(BaseTool):
-    name: str = "international_patent_publication_lookup"
+    name: str = "international_patent_application_number_lookup"
     description: str = (
-        "Look up international patents by publication/open number across multiple countries. Use for accessing published international patent documents."
+        "Look up international patents by application number across multiple countries. Use for accessing published international patent documents."
     )
     api: ForeignPatentInternationalApplicationNumberSearchAPI = (
         ForeignPatentInternationalApplicationNumberSearchAPI()
