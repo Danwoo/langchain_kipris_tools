@@ -22,7 +22,7 @@ class PatentRighterSearchArgs(BaseModel):
     )
     lastvalue: str = Field(
         "",
-        description="Patent status, filters patents by registration status, use status codes: empty = all patents (전체), 'A' = published (공개), 'C' = withdrawn (취하), 'F' = expired (소멸), 'G' = abandoned (포기), 'I' = invalid (무효), 'J' = rejected (거절), 'R' = registered (등록)",
+        description="Patent status, filters patents by registration status, use status codes: empty = all patents (전체), 'A' = published (공개), 'C' = withdrawn (취하), 'F' = expired (소멸), 'G' = abandoned (포기), 'I' = invalid (무효), 'J' = rejected (거절), 'R' = registered (등록). Default is empty (전체) to include all statuses.",
     )
     docs_start: int = Field(
         1,
@@ -37,8 +37,8 @@ class PatentRighterSearchArgs(BaseModel):
         description="Sort order, controls ascending or descending order, set to True for descending (newest first) or False for ascending",
     )
     sort_spec: str = Field(
-        "AD",
-        description="Sort criteria, determines result ordering by date type, use date codes: empty = default relevance sorting (기본정렬), 'AD' = application date (출원일자), 'GD' = registration date (등록일자), 'PD' = publication date (공고일자), 'OPD' = open date (공개일자). Default is 'AD' (application date) for descending order (newest first).",
+        "",
+        description="Sort criteria, determines result ordering by date type, use date codes: ** IMPORTANT: Default to empty string ('') when user doesn't specify sorting ** '' = default sorting (기본정렬), 'AD' = application date (출원일자), 'GD' = registration date (등록일자), 'PD' = publication date (공고일자), 'OPD' = open date (공개일자). ** Use empty string ('') unless explicitly requested otherwise **",
     )
 
     class Config:
@@ -47,7 +47,7 @@ class PatentRighterSearchArgs(BaseModel):
             "optional": ["docs_count", "sort_spec"],
             "safe_defaults": {
                 "docs_count": [5],
-                "sort_spec": "AD",
+                "sort_spec": "",
             },
         }
 
@@ -69,7 +69,7 @@ class PatentRighterSearchTool(BaseTool):
         patent: bool = True,
         utility: bool = True,
         lastvalue: str = "",
-        sort_spec: str = "AD",
+        sort_spec: str = "",
         desc_sort: bool = True,
     ) -> pd.DataFrame:
         result = self.api.search(

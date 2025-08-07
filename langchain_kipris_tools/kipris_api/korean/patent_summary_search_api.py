@@ -8,12 +8,13 @@ from logging import getLogger
 
 logger = getLogger(__name__)
 
+
 class PatentSummarySearchAPI(ABSKiprisAPI):
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)        
+        super().__init__(**kwargs)
         self.api_url = "http://plus.kipris.or.kr/kipo-api/kipi/patUtiModInfoSearchSevice/getBibliographySumryInfoSearch"
 
-    def search(self, application_number:str, **kwargs)->pd.DataFrame:
+    def search(self, application_number: str, **kwargs) -> pd.DataFrame:
         """_summary_
 
         Args:
@@ -23,16 +24,18 @@ class PatentSummarySearchAPI(ABSKiprisAPI):
         """
         if not application_number:
             raise ValueError("application_number is required")
-            
+
         parameters = {**kwargs}
         for key, value in parameters.items():
             parameters[key] = urllib.parse.quote(value)
-        
-        # logger.info(f"application_number: {application_number}")        
-        
-        response = self.common_call(api_url=self.api_url,
-                                  api_key_field="ServiceKey",
-                                  application_number=application_number)
+
+        # logger.info(f"application_number: {application_number}")
+
+        response = self.common_call(
+            api_url=self.api_url,
+            api_key_field="ServiceKey",
+            application_number=application_number,
+        )
         patents = get_nested_key_value(response, "response.body.items.item")
         if patents is None:
             # logger.info("patents is None")

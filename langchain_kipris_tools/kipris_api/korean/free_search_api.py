@@ -4,6 +4,7 @@ import typing as t
 import pandas as pd
 
 import urllib.parse
+
 # import logging
 
 # logging.basicConfig(
@@ -28,7 +29,7 @@ class PatentFreeSearchAPI(ABSKiprisAPI):
         page_no: int = 1,
         num_of_rows: int = 10,
         desc_sort: bool = False,
-        sort_spec: str = "AD",
+        sort_spec: str = "",
         **kwargs,
     ) -> pd.DataFrame:
         """_summary_

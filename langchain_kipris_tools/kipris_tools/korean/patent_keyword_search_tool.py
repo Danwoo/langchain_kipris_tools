@@ -20,7 +20,7 @@ class PatentKeywordSearchArgs(BaseModel):
     )
     lastvalue: str = Field(
         "",
-        description="Patent status, filters patents by registration status, use status codes: empty = all patents (전체), 'A' = published (공개), 'C' = withdrawn (취하), 'F' = expired (소멸), 'G' = abandoned (포기), 'I' = invalid (무효), 'J' = rejected (거절), 'R' = registered (등록)",
+        description="Patent status, filters patents by registration status, use status codes: empty = all patents (전체), 'A' = published (공개), 'C' = withdrawn (취하), 'F' = expired (소멸), 'G' = abandoned (포기), 'I' = invalid (무효), 'J' = rejected (거절), 'R' = registered (등록). Default is empty (전체) to include all statuses.",
     )
     docs_start: int = Field(
         1,
@@ -35,8 +35,8 @@ class PatentKeywordSearchArgs(BaseModel):
         description="Sort order, controls ascending or descending order, set to True for descending (newest first) or False for ascending",
     )
     sort_spec: str = Field(
-        "AD",
-        description="Sort criteria, determines result ordering by date type, use date codes: empty = default relevance sorting (기본정렬), 'AD' = application date (출원일자), 'GD' = registration date (등록일자), 'PD' = publication date (공고일자), 'OPD' = open date (공개일자). Default is 'AD' (application date) for descending order (newest first).",
+        "",
+        description="Sort criteria for patent results. ** ALWAYS USE EMPTY STRING ('') AS DEFAULT - DO NOT SET ANY DATE CODE UNLESS USER EXPLICITLY REQUESTS SPECIFIC SORTING ** Available options: '' = default system sorting (REQUIRED DEFAULT), 'AD' = application date, 'GD' = registration date, 'PD' = publication date, 'OPD' = open date. ** CRITICAL: Leave this field empty ('') unless user specifically asks for date-based sorting **",
     )
 
     class Config:
@@ -45,7 +45,7 @@ class PatentKeywordSearchArgs(BaseModel):
             "optional": ["docs_count", "sort_spec"],
             "safe_defaults": {
                 "docs_count": [5],
-                "sort_spec": "AD",
+                "sort_spec": "",
             },
         }
 
@@ -53,7 +53,7 @@ class PatentKeywordSearchArgs(BaseModel):
 class PatentKeywordSearchTool(BaseTool):
     name: str = "korean_patent_info_search"
     description: str = (
-        "Search Korean patent database by technical keywords for patent information analysis. Use for patent landscape research, prior art analysis, and monitoring patent trends, including those of competitors, in Korean patents"
+        "Search Korean patent database by technical keywords. Use for finding patents related to specific technologies, innovations, or research areas. This tool helps in identifying patents based on technology terms, useful for R&D, competitive analysis, and innovation tracking."
     )
     api: PatentFreeSearchAPI = PatentFreeSearchAPI()
     args_schema: t.Type[BaseModel] = PatentKeywordSearchArgs
@@ -68,7 +68,7 @@ class PatentKeywordSearchTool(BaseTool):
         docs_start: int = 0,
         docs_count: int = 10,
         desc_sort: bool = True,
-        sort_spec: str = "AD",
+        sort_spec: str = "",
     ) -> pd.DataFrame:
         result = self.api.search(
             word,
