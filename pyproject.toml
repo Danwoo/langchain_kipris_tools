@@ -3,7 +3,7 @@ name = "langchain_kipris_tools"
 version = "0.1.0"
 
 [tool.poetry.dependencies]
-python = ">=3.10,<3.11"
+python = ">=3.10,<3.12"
 
 langchain = "0.3.27"
 langchain-core = "0.3.72"
